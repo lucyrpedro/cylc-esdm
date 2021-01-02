@@ -17,7 +17,7 @@ while [[ $ens -lt $NUMENS ]]; do
     MPIEXEC_ARG="$MPIEXEC_ARG : "
   fi
   rm -f ${INPUT_DATA_NML}_mem$ens
-  cp $INPUT_DATA_NML ${INPUT_DATA_NML}_mem$ens
+  cp ${INPUT_DATA_NML} ${INPUT_DATA_NML}_mem$ens
   # Add extra environment variables to ENV_ENS
   ENV_ENS="env ENS_MEMBER=$ens"
   MPIEXEC_ARG="$MPIEXEC_ARG $LAUNCH_MPI_MODEL $ENV_ENS $MODEL_EXEC"

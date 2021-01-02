@@ -23,6 +23,7 @@
   [[root]]
     init-script = init-script.sh
     post-script = copy-files.sh
+# Move all the created files to the share directory. For the original suite to work, all files have to be in the same directory.
   [[broadcast-test]]
   {% if not BROADCAST %}
         script = """
