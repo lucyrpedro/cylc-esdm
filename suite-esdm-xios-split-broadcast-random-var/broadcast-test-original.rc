@@ -1,3 +1,0 @@
-[environment]
-      INPUT_DATA_NML = 'input_data_ens'
-      VAR_NCOPIES = 20

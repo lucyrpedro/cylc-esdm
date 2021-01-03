@@ -1,3 +1,0 @@
-[environment]
-      INPUT_DATA_NML = 'data_input'
-      VAR_NCOPIES = 10
