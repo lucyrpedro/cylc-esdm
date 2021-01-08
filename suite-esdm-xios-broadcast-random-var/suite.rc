@@ -14,12 +14,13 @@
   title = test suite esdm-xios with cylc broadcast (random variable, multi cycle)
   description = This suite adapts the esdm-xios suite to run with cylc broadcast. The original suite is split into files and modifications into the original suite are introduced using cylc broadcast.
 [scheduling]
-    initial cycle point = 20200810T00
-    final cycle point = 20200812T00
+    initial cycle point = 20200801T00
+    final cycle point = 20200810T00
   [[dependencies]]
      [[[T00]]]
       graph = """
-        broadcast-test => esdm-conf & input-data & xios-test-in & xios-xml => run-xios-test
+        broadcast-test => esdm-conf & input-data & xios-test-in & xios-xml => run-xios-test => end-cycle
+	end-cycle[-P1D] => broadcast-test
       """
 [runtime]
   [[root]]
@@ -43,7 +44,7 @@
             cylc broadcast -n 'input-data' -F "${CYLC_SUITE_DEF_PATH}/broadcast-input.rc" "${CYLC_SUITE_NAME}"
             cylc broadcast -n 'xios-test-in' -F "${CYLC_SUITE_DEF_PATH}/broadcast-test.rc" "${CYLC_SUITE_NAME}"
             cylc broadcast -n 'xios-xml' -F "${CYLC_SUITE_DEF_PATH}/broadcast-xml.rc" "${CYLC_SUITE_NAME}"
-            cylc broadcast -n 'run-xios-test' -s "[environment]INPUT_DATA_NML=data_input" "${CYLC_SUITE_NAME}"
+            cylc broadcast -n 'run-xios-test' -p "${CYLC_TASK_CYCLE_POINT}" -s "[environment]INPUT_DATA_NML=data_input" "${CYLC_SUITE_NAME}"
 	fi
 	  """
   [[esdm-conf]]
@@ -91,6 +92,8 @@
       LAUNCH_MPI_MODEL = "-np {{NPROC}}"
       LAUNCH_MPI_XIOS = "-np {{XIOS_NPROC}}"
 [visualization]
+    initial cycle point = 20200801T00
+    final cycle point = 20200802T00
     [[node attributes]]
         esdm-conf = "color=red"
         input-data = "color=blue"
